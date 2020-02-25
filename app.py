@@ -1,10 +1,12 @@
-from flask import Flask
+from flask import Flask , jsonify
 app = Flask(__name__)
 
 @app.route("/get_sms")
 def get_sms(): 
     '''this function get and show sms'''
-    pass
+    print("[+] we are getting sms . . . :)");
+    data = {"message":"procecd"}
+    return jsonify(data) , 200
 
 @app.route("/send_sms")
 def send_sms(): 
