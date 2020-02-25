@@ -17,6 +17,7 @@ def get_sms():
 def send_sms(): 
     '''this function send sms'''
     sendsms(phone,mess)
+    return f"sms send to {phone} \n message was : {mess}"
 
 def sendsms(phone,mess):
     api_key='44345A386669384A683450384D2B434A656F5176326937594E6866734136754A2B4B565750415A6A6D66633D'
