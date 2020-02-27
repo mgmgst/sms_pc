@@ -19,7 +19,7 @@ def send_sms():
         return redirect("message_Send")        
 
     else:
-        return render_template('index.html')
+        return render_template('index.html')    
 
 @app.route("/",methods=["GET", "POST"])
 def login():
