@@ -6,6 +6,7 @@ __pycache__/
 *link_and_todos.txt
 # C extensions
 *.so
+*config.py
 
 # Distribution / packaging
 .Python
