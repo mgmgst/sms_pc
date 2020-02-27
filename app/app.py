@@ -16,7 +16,7 @@ def send_sms():
         phone = request.form["phone"]
         message = request.form["message"]
         sendsms(phone,message)
-        return redirect("message_Send")        
+        return redirect("message_Send")      
 
     else:
         return render_template('index.html')    
