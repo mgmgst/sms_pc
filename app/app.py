@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route("/message_Send")
 def message_Send():
     '''this is test subject for message_Send'''
-    return 'message_Send' , 200
+    return render_template("sendedsms.html")
 
 @app.route("/get_sms")
 def get_sms(): 
