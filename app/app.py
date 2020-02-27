@@ -1,6 +1,6 @@
 import requests
 import config
-from flask import Flask,jsonify,redirect,request,render_template
+from flask import Flask,jsonify,redirect,request,render_template,flash
 
 app = Flask(__name__)
 
@@ -30,7 +30,8 @@ def login():
         if check(username,password):
             return redirect("send_sms")
         else:
-            return redirect("/")    
+            return redirect("/")
+            flash('wrong password!')    
     else:
         return render_template("login.html")
 
