@@ -15,6 +15,7 @@ def get_sms():
     data = request.form
     sender = data["from"]
     message = data["message"]
+    print(f"i recived {message} from {sender}")
     ret = {"sender":sender,"message":message}
     return jsonify(ret) , 200    
 
