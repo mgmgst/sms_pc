@@ -5,6 +5,11 @@ from flask import Flask,jsonify,redirect,request,render_template,flash,url_for
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
+@app.route("/ok")
+def sys_check():
+    '''this function tell that falsk server is ok and running!!'''
+    ret = {'status':'ok','message':'[+] flask server is running'}
+    return jsonify(ret) , 200
 
 @app.route("/message_Send")
 def message_Send():
