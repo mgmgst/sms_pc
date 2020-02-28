@@ -1,8 +1,10 @@
 import requests
 import config
-from flask import Flask,jsonify,redirect,request,render_template,flash
+from flask import Flask,jsonify,redirect,request,render_template,flash,url_for
 
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
 
 @app.route("/message_Send")
 def message_Send():
@@ -35,16 +37,16 @@ def send_sms():
 @app.route("/",methods=["GET", "POST"])
 def login():
     '''this function return login page'''
+    error = None
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
         if check(username,password):
-            return redirect("send_sms")
+            return redirect(url_for('send_sms'))
         else:
-            return redirect("/")
-            flash('wrong password!')    
-    else:
-        return render_template("login.html")
+            error = '.نام کاربری یا رمز عبور اشتباه می باشد'
+
+    return render_template('login.html', error=error)            
 
 def sendsms(phone,mess):
     url = config.url
