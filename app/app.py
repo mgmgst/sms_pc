@@ -9,6 +9,15 @@ def message_Send():
     '''this is test subject for message_Send'''
     return render_template("sendedsms.html")
 
+@app.route("/get_sms",methods=["GET", "POST"])
+def get_sms():
+    '''this is getting sms function'''
+    data = request.form
+    sender = data["from"]
+    message = data["message"]
+    ret = {"sender":sender,"message":message}
+    return jsonify(ret) , 200    
+
 @app.route("/send_sms",methods=["GET", "POST"])
 def send_sms(): 
     '''this function send sms'''
