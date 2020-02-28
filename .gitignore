@@ -7,7 +7,7 @@ __pycache__/
 # C extensions
 *.so
 *config.py
-
+*testgetsms.py
 # Distribution / packaging
 .Python
 build/
@@ -129,3 +129,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+testgetsms.py

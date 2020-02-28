@@ -12,10 +12,11 @@ def message_Send():
 @app.route("/get_sms",methods=["GET", "POST"])
 def get_sms():
     '''this is getting sms function'''
+    #Todo:add graphical page and showing get sms list somthing like buttom print
     data = request.form
     sender = data["from"]
     message = data["message"]
-    print(f"i recived {message} from {sender}")
+    #print(f"i recived {message} from {sender}")
     ret = {"sender":sender,"message":message}
     return jsonify(ret) , 200    
 
