@@ -4,3 +4,5 @@ api_key ='{put you kavehnegar api key here}'
 url = 'https://api.kavenegar.com/v1/%s/sms/send.json' % (api_key)
 username = "{every user name that you want}"
 password = "{every password that you want}"
+
+secret_key = "{place your favrite secret key here}"
