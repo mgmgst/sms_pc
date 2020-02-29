@@ -2,6 +2,7 @@ import requests
 import config
 from flask import Flask, jsonify, redirect, request, render_template, url_for, Response, session
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
+import sqlite3
 
 app = Flask(__name__)
 
@@ -64,6 +65,7 @@ def get_sms():
     #print(f"i recived {message} from {sender}")
     #send_sms(sender,'Hi' + message)
     ret = {"sender":sender,"message":message}
+    writing_to_database(sender,message)
     return jsonify(ret) , 200    
 
 @app.route("/",methods=["GET", "POST"])
@@ -108,5 +110,20 @@ def check(username,password):
         res = True
     return res    
 
+def writing_to_database(sender,message):
+    
+    conn = sqlite3.connect(config.DFP)
+    cur = conn.cursor()
+    cur.execute("DROP TABLE IF EXISTS messages")
+    cur.execute("""CREATE TABLE IF NOT EXISTS messages (
+        sender TEXT PRIMARY KEY,
+        message TEXT);""")
+    conn.commit()    
+    qury = f'INSERT INTO messages VALUES ("{sender}","{message}");'
+    cur.execute(qury)
+    conn.commit()
+    conn.close()
+
 if __name__ == "__main__":
+    writing_to_database("+98 915 552 0952","salam")
     app.run("0.0.0.0",5000,debug=True)

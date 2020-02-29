@@ -6,3 +6,5 @@ username = "{every user name that you want}"
 password = "{every password that you want}"
 
 secret_key = "{place your favrite secret key here}"
+
+DFP = "database.sqlite"

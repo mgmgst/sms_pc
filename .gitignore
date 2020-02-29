@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.swp
+*.exe
+
 *link_and_todos.txt
 # C extensions
 *.so
@@ -131,3 +133,4 @@ dmypy.json
 .pyre/
 testgetsms.py
 ngrok.exe
+app/database.sqlite
