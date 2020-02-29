@@ -1,7 +1,7 @@
 import requests
 import config
 import sqlite3
-from flask import Flask, jsonify, redirect, request, render_template, url_for, Response, session
+from flask import Flask, flash, jsonify, redirect, request, render_template, url_for, Response, session
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -42,6 +42,7 @@ user = User(0)
 @login_required
 def logout():
     logout_user()
+    flash
     return redirect('login')   
     
 # callback to reload the user object        
@@ -92,17 +93,18 @@ def send_sms():
 @limiter.limit("10 per minute")
 def login():
     '''this function return login page'''
-    error = None
+    message = None
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
         if check(username,password):
             login_user(user)
+            flash('ورود به سرور موفق')
             return redirect(url_for('send_sms'))
         else:
-            error = '.نام کاربری یا رمز عبور اشتباه می باشد'
+            message = 'نام کاربری یا رمز عبور اشتباه می باشد'
 
-    return render_template('login.html', error=error)            
+    return render_template('login.html', message=message)            
 
 def sendsms(phone,mess):
     url = config.url
