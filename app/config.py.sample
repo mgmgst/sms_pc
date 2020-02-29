@@ -3,6 +3,7 @@
 api_key ='{put you kavehnegar api key here}'
 url = 'https://api.kavenegar.com/v1/%s/sms/send.json' % (api_key)
 
+#add this callbacktoken to the kavehnegar callbacksms for sending sms from url to me
 callbacktoken = "callbacktoken"
 
 username = "{every user name that you want}"
