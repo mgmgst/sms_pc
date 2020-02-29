@@ -61,7 +61,7 @@ def message_Send():
     '''this is test subject for message_Send'''
     return render_template("sendedsms.html")
 
-@app.route("/get_sms",methods=["GET", "POST"])
+@app.route(f"/{config.callbacktoken}/get_sms",methods=["GET", "POST"])
 @login_required
 def get_sms():
     '''this is getting sms function'''
