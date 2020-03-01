@@ -2,7 +2,7 @@ import requests
 import config
 import sqlite3
 from flask import Flask, flash, jsonify, redirect, request, render_template, url_for, Response, session
-from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
+from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
@@ -94,6 +94,8 @@ def send_sms():
 def login():
     '''this function return login page'''
     message = None
+    if current_user.is_authenticated:
+        return redirect("/")
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
