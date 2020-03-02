@@ -68,11 +68,9 @@ def message_Send():
     '''this is test subject for message_Send'''
     return render_template("sendedsms.html")
 
-@app.route(f"/{config.callbacktoken}/get_sms",methods=["GET", "POST"])
-@login_required
+@app.route("/get_sms",methods=["GET", "POST"])
 def get_sms():
     '''this is getting sms function'''
-    # TODO: add graphical things to this page and showing get sms list
     if request.method == 'POST':
         data = request.form
         sender = data["from"]
@@ -81,9 +79,12 @@ def get_sms():
         redirect(url_for('get_sms'))
     
     else:
-        # TODO: find way for showing all values not news one and make it more ghrapical
-        result = dict(reading_smss_from_database())
-        return result, 200   
+        all_sms = reading_smss_from_database()
+        smss = []
+        for work in all_sms:
+            sender , message = work
+            smss.append({"sender":sender,"message":message})
+        return render_template("getsms.html", data = {"smss" : smss})   
 
 @app.route("/",methods=["GET", "POST"])
 @login_required
@@ -96,7 +97,7 @@ def send_sms():
         return redirect("message_Send")      
 
     else:
-        return render_template('index.html')    
+        return render_template('send.html')    
 
 @app.route("/login",methods=["GET", "POST"])
 @limiter.limit("10 per minute")
@@ -104,14 +105,14 @@ def login():
     '''this function return login page'''
     message = None
     if current_user.is_authenticated:
-        return redirect("/")
+        return redirect(url_for("get_sms"))
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
         if check(username,password):
             login_user(user)
             flash('ورود به سرور موفق','info')
-            return redirect(url_for('send_sms'))
+            return redirect(url_for('get_sms'))
         else:
             message = 'نام کاربری یا رمز عبور اشتباه می باشد'
 
@@ -155,8 +156,9 @@ def reading_smss_from_database():
     cur = db.cursor()
     cur.execute("SELECT * FROM messages;")
     db.close()
-    return dict(cur.fetchall())
+    return cur.fetchall()
 
 
 if __name__ == "__main__":
+    #writing_sms_to_database("sada","asdasd")
     app.run("0.0.0.0",5000,debug=True)
