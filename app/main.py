@@ -72,7 +72,7 @@ def message_Send():
 @login_required
 def get_sms():
     '''this is getting sms function'''
-    # TODO: add graphical page and showing get sms list
+    # TODO: add graphical things to this page and showing get sms list
     if request.method == 'POST':
         data = request.form
         sender = data["from"]
@@ -83,10 +83,7 @@ def get_sms():
     else:
         # TODO: find way for showing all values not news one and make it more ghrapical
         result = dict(reading_smss_from_database())
-        return result, 200
-        # maybe we use this type under :
-        #ret = {"sender":sender,"message":message}
-        #return jsonify(ret) , 200    
+        return result, 200   
 
 @app.route("/",methods=["GET", "POST"])
 @login_required
@@ -134,7 +131,6 @@ def check(username,password):
         res = True
     return res    
 
-# TODO: make database open for ever for adding works from add page to it when i togel it my self close it
 def writing_sms_to_database(sender,message):
     
     db=MySQLdb.connect(host=config.MYSQL_HOST,
@@ -142,9 +138,9 @@ def writing_sms_to_database(sender,message):
                        passwd=config.MYSQL_PASS,
                        db=config.MYSQL_DB)
     cur = db.cursor()
-    cur.execute("DROP TABLE IF EXISTS messages;")
-    cur.execute("""CREATE TABLE messages (sender VARCHAR(100) , message VARCHAR(250));""")
-    db.commit()    
+    #cur.execute("DROP TABLE IF EXISTS messages;")
+    #cur.execute("""CREATE TABLE messages (sender VARCHAR(100) , message VARCHAR(250));""")
+    #db.commit()    
     qury = f'INSERT INTO messages VALUES ("{sender}","{message}");'
     cur.execute(qury)
     db.commit()
@@ -159,7 +155,7 @@ def reading_smss_from_database():
     cur = db.cursor()
     cur.execute("SELECT * FROM messages;")
     db.close()
-    return cur.fetchall()
+    return dict(cur.fetchall())
 
 
 if __name__ == "__main__":
