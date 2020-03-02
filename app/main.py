@@ -1,6 +1,6 @@
 import requests
 import config
-import sqlite3
+import MySQLdb
 from flask import Flask, flash, jsonify, redirect, request, render_template, url_for, Response, session
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 from flask_limiter import Limiter
@@ -66,15 +66,21 @@ def message_Send():
 @login_required
 def get_sms():
     '''this is getting sms function'''
-    #Todo:add graphical page and showing get sms list somthing like buttom print
-    data = request.form
-    sender = data["from"]
-    message = data["message"]
-    #print(f"i recived {message} from {sender}")
-    #send_sms(sender,'Hi' + message)
-    ret = {"sender":sender,"message":message}
-    writing_to_database(sender,message)
-    return jsonify(ret) , 200    
+    # TODO: add graphical page and showing get sms list somthing like buttom print
+    if request.method == 'POST':
+        data = request.form
+        sender = data["from"]
+        message = data["message"]
+        writing_sms_to_database(sender,message)
+        redirect(url_for('get_sms'))
+    
+    else:
+        # TODO: find way for showing all values not news one
+        result = dict(reading_smss_from_database())
+        return result, 200
+        # maybe we use this type unde :
+        #ret = {"sender":sender,"message":message}
+        #return jsonify(ret) , 200    
 
 @app.route("/",methods=["GET", "POST"])
 @login_required
@@ -122,20 +128,32 @@ def check(username,password):
         res = True
     return res    
 
-def writing_to_database(sender,message):
+def writing_sms_to_database(sender,message):
     
-    conn = sqlite3.connect(config.DFP)
-    cur = conn.cursor()
-    cur.execute("DROP TABLE IF EXISTS messages")
-    cur.execute("""CREATE TABLE IF NOT EXISTS messages (
-        sender TEXT PRIMARY KEY,
-        message TEXT);""")
-    conn.commit()    
+    db=MySQLdb.connect(host=config.MYSQL_HOST,
+                       user=config.MYSQL_USER,
+                       passwd=config.MYSQL_PASS,
+                       db=config.MYSQL_DB)
+    cur = db.cursor()
+    cur.execute("DROP TABLE IF EXISTS messages;")
+    cur.execute("""CREATE TABLE messages (sender VARCHAR(100) , message VARCHAR(250));""")
+    db.commit()    
     qury = f'INSERT INTO messages VALUES ("{sender}","{message}");'
     cur.execute(qury)
-    conn.commit()
-    conn.close()
+    db.commit()
+    db.close()
+
+def reading_smss_from_database():
+
+    db=MySQLdb.connect(host=config.MYSQL_HOST,
+                       user=config.MYSQL_USER,
+                       passwd=config.MYSQL_PASS,
+                       db=config.MYSQL_DB)
+    cur = db.cursor()
+    cur.execute("SELECT * FROM messages;")
+    db.close()
+    return cur.fetchall()
+
 
 if __name__ == "__main__":
-    writing_to_database("+98 915 552 0952","salam")
     app.run("0.0.0.0",5000,debug=True)

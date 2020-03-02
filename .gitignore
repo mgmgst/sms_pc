@@ -23,6 +23,7 @@ lib64/
 parts/
 sdist/
 var/
+non useable thing/
 wheels/
 pip-wheel-metadata/
 share/python-wheels/
