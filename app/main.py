@@ -113,7 +113,7 @@ def login():
         password = request.form["password"]
         if check(username,password):
             login_user(user)
-            flash('ورود به سرور موفق')
+            flash('ورود به سرور موفق','info')
             return redirect(url_for('send_sms'))
         else:
             message = 'نام کاربری یا رمز عبور اشتباه می باشد'
