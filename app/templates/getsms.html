@@ -23,7 +23,7 @@
         <ul class="navbar-nav ml-auto ml-md-0">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown" style="direction: rtl; text-align: right;">
                     <a class="dropdown-item" href="logout">خروج از سرور</a>
                 </div>
             </li>
@@ -50,7 +50,7 @@
             <main>
                 <div class="container-fluid">
                     <h1 class="mt-4" style="direction: rtl; text-align: right;">صفحه پیام های دریافت شده</h1><br> {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
-                    <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+                    <div class="alert alert-{{ category }} alert-dismissible" role="alert" style="direction: rtl; text-align: center;">
                         {{ message }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
