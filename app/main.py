@@ -133,31 +133,31 @@ def check(username,password):
     return res    
 
 def writing_sms_to_database(sender,message):
-    
-    db=MySQLdb.connect(host=config.MYSQL_HOST,
-                       user=config.MYSQL_USER,
-                       passwd=config.MYSQL_PASS,
-                       db=config.MYSQL_DB)
-    cur = db.cursor()
+    # TODO: write them into readme.mi + other mysql commands
     #cur.execute("DROP TABLE IF EXISTS messages;")
     #cur.execute("""CREATE TABLE messages (sender VARCHAR(100) , message VARCHAR(250));""")
-    #db.commit()    
+    #db.commit()
+    db = connect_to_database()    
+    cur = db.cursor()
     qury = f'INSERT INTO messages VALUES ("{sender}","{message}");'
     cur.execute(qury)
     db.commit()
     db.close()
 
 def reading_smss_from_database():
-
-    db=MySQLdb.connect(host=config.MYSQL_HOST,
-                       user=config.MYSQL_USER,
-                       passwd=config.MYSQL_PASS,
-                       db=config.MYSQL_DB)
+    db = connect_to_database()
     cur = db.cursor()
     cur.execute("SELECT * FROM messages;")
     db.close()
     return cur.fetchall()
 
+def connect_to_database():
+    db = MySQLdb.connect(host=config.MYSQL_HOST,
+                       user=config.MYSQL_USER,
+                       passwd=config.MYSQL_PASS,
+                       db=config.MYSQL_DB,
+                       charset=config.charset)
+    return db                       
 
 if __name__ == "__main__":
     #writing_sms_to_database("sada","asdasd")
