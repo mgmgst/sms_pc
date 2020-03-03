@@ -133,10 +133,6 @@ def check(username,password):
     return res    
 
 def writing_sms_to_database(sender,message):
-    # TODO: write them into readme.mi + other mysql commands
-    #cur.execute("DROP TABLE IF EXISTS messages;")
-    #cur.execute("""CREATE TABLE messages (sender VARCHAR(100) , message VARCHAR(250));""")
-    #db.commit()
     db = connect_to_database()    
     cur = db.cursor()
     qury = f'INSERT INTO messages VALUES ("{sender}","{message}");'
