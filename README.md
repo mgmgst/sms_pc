@@ -38,7 +38,7 @@ This project is on working but for working on it do:
 
 4. goto `https://db-hologram.fandogh.cloud/server_databases.php` page for your MYSQL service.
 
-5. in this page create database by : Data_name : `smsmysql` , Codeing : `utf8mb4_bin` and push `create` button.
+5. in this page create database by : Database_name : `smsmysql` , Codeing : `utf8mb4_bin` and push `create` button.
 
 6. choose the `smsmysql` in databases list and in this database choose `SQL` and copy in that editor `CREATE TABLE messages (sender VARCHAR(100) , message VARCHAR(1024));` and push `go` button.
 
