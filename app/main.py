@@ -75,15 +75,15 @@ def get_sms():
         data = request.form
         sender = data["from"]
         message = data["message"]
-        writing_sms_to_database(sender,message)
+        writing_sms_to_database("دریافت",sender,message)
         redirect(url_for('get_sms'))
     
     else:
         all_sms = reading_smss_from_database()
         smss = []
         for work in all_sms:
-            sender , message = work
-            smss.append({"sender":sender,"message":message})
+            status, sender, message = work
+            smss.append({"status":status,"sender":sender,"message":message})
         return render_template("getsms.html", data = {"smss" : smss})   
 
 @app.route("/",methods=["GET", "POST"])
@@ -94,6 +94,7 @@ def send_sms():
         phone = request.form["phone"]
         message = request.form["message"]
         sendsms(phone,message)
+        writing_sms_to_database("ارسال",phone,message)
         return redirect("message_Send")      
 
     else:
@@ -132,10 +133,10 @@ def check(username,password):
         res = True
     return res    
 
-def writing_sms_to_database(sender,message):
+def writing_sms_to_database(status,sender,message):
     db = connect_to_database()    
     cur = db.cursor()
-    qury = f'INSERT INTO messages VALUES ("{sender}","{message}");'
+    qury = f'INSERT INTO messages VALUES ("{status}","{sender}","{message}");'
     cur.execute(qury)
     db.commit()
     db.close()

@@ -49,12 +49,12 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
-                    <h1 class="mt-4" style="direction: rtl; text-align: right;">صفحه پیام های دریافت شده</h1><br> {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
-                    <div class="alert alert-{{ category }} alert-dismissible" role="alert" style="direction: rtl; text-align: center;">
+                    <h1 class="mt-4" style="direction: rtl; text-align: right;">صفحه ارسال پیام</h1><br> {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible" role="alert">
                         {{ message }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                <span aria-hidden="true">&times;</span>
+                </button>
                     </div>
                     {% endfor %} {% endif %} {% endwith %}
                     <div class="card mb-4">
@@ -66,19 +66,22 @@
                                         <tr>
                                             <th style="direction: rtl; text-align: right;">متن</th>
                                             <th style="direction: rtl; text-align: right;">فرستنده</th>
+                                            <th style="direction: rtl; text-align: center;">status</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th style="direction: rtl; text-align: right;">متن</th>
                                             <th style="direction: rtl; text-align: right;">فرستنده</th>
+                                            <th style="direction: rtl; text-align: center;">status</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         {% for sms in data.smss %}
                                         <tr>
-                                            <td style="direction: rtl; text-align: right;">{{sms.message}}</td style="direction: rtl; text-align: right;">
-                                            <td style="direction: ltr; text-align: center;">{{sms.sender}}</td>
+                                            <td style="direction: ltr; text-align: right;">{{sms.message}}</td>
+                                            <td style="direction: ltr; text-align: right;">{{sms.sender}}</td>
+                                            <td style="direction: rtl; text-align: center;">{{sms.status}}</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -91,7 +94,7 @@
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">get sms page</div>
+                        <div class="text-muted">get && send sms page</div>
                     </div>
                 </div>
             </footer>
