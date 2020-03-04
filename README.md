@@ -18,7 +18,7 @@ This project is on working but for working on it do:
 
 7. run this comand in MYSQL database : `DROP TABLE IF EXISTS messages;`
 
-8. db configs are in config.py. Create the db and grant all access to the specified user with specified password, but you also need to add this table to the database manually: `CREATE TABLE messages (sender VARCHAR(100) , message VARCHAR(1024));`
+8. db configs are in config.py. Create the db and grant all access to the specified user with specified password, but you also need to add this table to the database manually: `CREATE TABLE messages (status VARCHAR(30),sender VARCHAR(100) , message VARCHAR(1024));`
 
 9. Create a virtualenve named build using `virtualenv -p python3 venv`
 
@@ -40,7 +40,7 @@ This project is on working but for working on it do:
 
 5. in this page create database by : Database_name : `smsmysql` , Codeing : `utf8mb4_bin` and push `create` button.
 
-6. choose the `smsmysql` in databases list and in this database choose `SQL` and copy in that editor `CREATE TABLE messages (sender VARCHAR(100) , message VARCHAR(1024));` and push `go` button.
+6. choose the `smsmysql` in databases list and in this database choose `SQL` and copy in that editor `CREATE TABLE messages (status VARCHAR(30),sender VARCHAR(100) , message VARCHAR(1024));` and push `go` button.
 
 7. goto to `https://docs.fandogh.cloud/docs/getting-started.html` page for how to deploy project there.
 
