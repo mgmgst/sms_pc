@@ -5,7 +5,6 @@ __pycache__/
 *.swp
 *.exe
 
-*link_and_todos.txt
 # C extensions
 *.so
 *config.py

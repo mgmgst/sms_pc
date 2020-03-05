@@ -68,23 +68,26 @@ def message_Send():
     '''this is test subject for message_Send'''
     return render_template("sendedsms.html")
 
-@app.route("/get_sms",methods=["GET", "POST"])
-def get_sms():
-    '''this is getting sms function'''
+@app.route("/get_sms_from",methods=["GET", "POST"])
+def get_sms_from():
     if request.method == 'POST':
         data = request.form
         sender = data["from"]
         message = data["message"]
         writing_sms_to_database("دریافت",sender,message)
-        redirect(url_for('get_sms'))
-    
-    else:
-        all_sms = reading_smss_from_database()
-        smss = []
-        for work in all_sms:
-            status, sender, message = work
-            smss.append({"status":status,"sender":sender,"message":message})
-        return render_template("getsms.html", data = {"smss" : smss})   
+        redirect(url_for('get_sms_from'))
+    return redirect(url_for('get_sms_from'))    
+
+@app.route("/get_sms",methods=["GET", "POST"])
+@login_required
+def get_sms():
+    '''this is getting sms function'''
+    all_sms = reading_smss_from_database()
+    smss = []
+    for work in all_sms:
+        status, sender, message = work
+        smss.append({"status":status,"sender":sender,"message":message})
+    return render_template("getsms.html", data = {"smss" : smss})   
 
 @app.route("/",methods=["GET", "POST"])
 @login_required
